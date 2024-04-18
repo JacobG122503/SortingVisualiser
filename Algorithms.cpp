@@ -33,7 +33,7 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
 
         if (i < pivotIndex && j > pivotIndex) {
             std::swap(arr[i++], arr[j--]);
-            PrintGraph(arr, i-1, j+1);
+            PrintGraph(arr, i - 1, j + 1);
         }
     }
 
@@ -55,15 +55,56 @@ void QuickSort::Sort(std::vector<int> &arr, int start, int end) {
     Sort(arr, p + 1, end);
 }
 
+void InsertionSort::Sort(std::vector<int> &arr, int n) {
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+
+        // Move elements of arr[0..i-1],
+        // that are greater than key,
+        // to one position ahead of their
+        // current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            PrintGraph(arr, j + 1, j);
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void BubbleSort::Sort(std::vector<int> &arr, int n) {
+    int i, j;
+    bool swapped;
+    for (i = 0; i < n - 1; i++) {
+        swapped = false;
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                std::swap(arr[j], arr[j + 1]);
+                PrintGraph(arr, j, j + 1);
+                swapped = true;
+            }
+        }
+
+        // If no two elements were swapped
+        // by inner loop, then break
+        if (swapped == false)
+            break;
+    }
+}
+
 void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
     clear();
     for (int i = 0; i < (int)arr.size(); i++) {
-        if (i == swap1 || i == swap2) attron(COLOR_PAIR(COLOR_RED) | A_BOLD);
+        if (i == swap1 || i == swap2)
+            attron(COLOR_PAIR(COLOR_RED) | A_BOLD);
         for (int j = 0; j <= arr[i]; j++) {
-            mvprintw(24 - j, i, "O");
+            mvprintw(getmaxy(stdscr) - j, i, "O");
         }
-        if (i == swap1 || i == swap2) attroff(COLOR_PAIR(COLOR_RED) | A_BOLD);
+        if (i == swap1 || i == swap2)
+            attroff(COLOR_PAIR(COLOR_RED) | A_BOLD);
     }
-    usleep(50000);
     refresh();
+    usleep(20000);
 }

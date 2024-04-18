@@ -5,9 +5,9 @@
 #include "Algorithms.h"
 #include <unistd.h>
 
-#define SIZE 80
+#define XSIZE 80
+#define YSIZE 24
 
-void PrintGraph(std::vector<int> arr);
 void SetupColors();
 
 int main(int argc, char *argv[]) {
@@ -15,11 +15,11 @@ int main(int argc, char *argv[]) {
     // Check terminal is correct size before continuing
     int termY, termX;
     getmaxyx(stdscr, termY, termX);
-    if (termX != 80 || termY != 24) {
+    if (termX != XSIZE || termY != YSIZE) {
         endwin();
         system("clear");
         std::cout << "YOUR TERMINAL SIZE IS CURRENTLY (" << termX << "x" << termY << ")" << std::endl;
-        std::cout << "PLEASE SET YOUR TERMINAL SIZE TO DEFAULT (80x24) AND RE LAUNCH PROGRAM" << std::endl;
+        std::cout << "PLEASE SET YOUR TERMINAL SIZE TO " + std::to_string(XSIZE) + "x" + std::to_string(YSIZE) + " AND RE LAUNCH PROGRAM" << std::endl;
         exit(0);
     }
     raw();
@@ -31,18 +31,20 @@ int main(int argc, char *argv[]) {
     int command = ' ';
     while (command != 'q') {
         std::vector<int> arr;
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < XSIZE; i++) {
             //(rand() % (upper - lower + 1)) + lower
-            arr.push_back((rand() % (24 - 1 + 1)) + 1);
+            arr.push_back((rand() % (YSIZE - 1 + 1)) + 1);
         }
 
         attron(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
-        mvprintw(0, (80 / 2) - (18/2), "SORTING VISUALISER");
+        mvprintw(0, (XSIZE / 2) - (18 / 2), "SORTING VISUALISER");
         attroff(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
 
         mvprintw(5, 0, "Please type the number of the sorting method you would like to see or q to quit");
 
         mvprintw(8, 0, "1. Quick Sort");
+        mvprintw(9, 0, "2. Insertion Sort");
+        mvprintw(10, 0, "3. Bubble Sort");
 
         refresh();
         command = getch();
@@ -50,6 +52,16 @@ int main(int argc, char *argv[]) {
         if (command == '1') {
             QuickSort qs;
             qs.Sort(arr, 0, (int)arr.size() - 1);
+            usleep(1750000);
+            clear();
+        } else if (command == '2') {
+            InsertionSort is;
+            is.Sort(arr, (int)arr.size());
+            usleep(1750000);
+            clear();
+        } else if (command == '3') {
+            BubbleSort bs;
+            bs.Sort(arr, (int)arr.size());
             usleep(1750000);
             clear();
         }
@@ -69,3 +81,4 @@ void SetupColors() {
     init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
     init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
 }
+
