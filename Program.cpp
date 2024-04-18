@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Algorithms.h"
+#include <unistd.h>
 
 #define SIZE 80
 
@@ -27,16 +28,32 @@ int main(int argc, char *argv[]) {
     keypad(stdscr, TRUE);
     SetupColors();
 
-    std::vector<int> arr; 
-    for (int i = 0; i < SIZE; i++) {
-        //(rand() % (upper - lower + 1)) + lower
-        arr.push_back((rand() % (24 - 1 + 1)) + 1);
-    }
-    
-    QuickSort qs(arr);
-    qs.Sort();
+    int command = ' ';
+    while (command != 'q') {
+        std::vector<int> arr;
+        for (int i = 0; i < SIZE; i++) {
+            //(rand() % (upper - lower + 1)) + lower
+            arr.push_back((rand() % (24 - 1 + 1)) + 1);
+        }
 
-    while(getch() != 'q');
+        attron(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
+        mvprintw(0, (80 / 2) - (18/2), "SORTING VISUALISER");
+        attroff(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
+
+        mvprintw(5, 0, "Please type the number of the sorting method you would like to see or q to quit");
+
+        mvprintw(8, 0, "1. Quick Sort");
+
+        refresh();
+        command = getch();
+
+        if (command == '1') {
+            QuickSort qs;
+            qs.Sort(arr, 0, (int)arr.size() - 1);
+            usleep(1750000);
+            clear();
+        }
+    }
 
     endwin();
     return 0;

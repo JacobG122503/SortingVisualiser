@@ -6,9 +6,8 @@
 
 class QuickSort {
 public:
-    std::vector<int> arr;
-    QuickSort(std::vector<int> arr) : arr(arr) {};
-    void Sort();
+    int Partition(std::vector<int> &arr, int start, int end);
+    void Sort(std::vector<int> &arr, int start, int end);
 };
 
 #endif
