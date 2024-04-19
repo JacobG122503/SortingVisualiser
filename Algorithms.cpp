@@ -1,6 +1,9 @@
 #include "Algorithms.h"
 #include <unistd.h>
 
+// This is the delay in microseconds. Change to 0 if you want no delay
+#define DELAY 20000
+
 void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount);
 
 int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
@@ -244,15 +247,23 @@ void MergeSort::Sort(std::vector<int> &array, int const begin, int const end) {
 void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
     clear();
     for (int i = 0; i < (int)arr.size(); i++) {
-        if (i == swap1 || i == swap2)
-            attron(COLOR_PAIR(COLOR_RED) | A_BOLD);
-        for (int j = 0; j <= arr[i]; j++) {
-            mvprintw(getmaxy(stdscr) - j, i, "O");
+        // Set color
+        if (i == swap1 || i == swap2) {
+            attron(COLOR_PAIR(COLOR_RED));
+        } else {
+            attron(COLOR_PAIR(COLOR_WHITE));
         }
-        if (i == swap1 || i == swap2)
-            attroff(COLOR_PAIR(COLOR_RED) | A_BOLD);
+        for (int j = 0; j <= arr[i]; j++) {
+            mvprintw(getmaxy(stdscr) - j, i, "0");
+        }
+        //Turn color off
+        if (i == swap1 || i == swap2) {
+            attroff(COLOR_PAIR(COLOR_RED));
+        } else {
+            attroff(COLOR_PAIR(COLOR_WHITE));
+        }
     }
     refresh();
     // Some sorting algorithms have more swaps than others so this is a way to even the playing field.
-    usleep(20000 / amount);
+    usleep(DELAY); // / amount);
 }

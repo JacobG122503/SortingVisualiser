@@ -31,16 +31,7 @@ std::vector<Algs> leaderboard;
 
 int main(int argc, char *argv[]) {
     initscr();
-    // Check terminal is correct size before continuing
-    int termY, termX;
-    getmaxyx(stdscr, termY, termX);
-    // if (termX != XSIZE || termY != YSIZE) {
-    //     endwin();
-    //     system("clear");
-    //     std::cout << "YOUR TERMINAL SIZE IS CURRENTLY (" << termX << "x" << termY << ")" << std::endl;
-    //     std::cout << "PLEASE SET YOUR TERMINAL SIZE TO " + std::to_string(XSIZE) + "x" + std::to_string(YSIZE) + " AND RE LAUNCH PROGRAM" << std::endl;
-    //     exit(0);
-    // }
+
     raw();
     noecho();
     curs_set(0);
@@ -51,13 +42,13 @@ int main(int argc, char *argv[]) {
     while (command != 'Q') {
         clear();
         std::vector<int> arr;
-        for (int i = 0; i < termX; i++) {
+        for (int i = 0; i < getmaxx(stdscr); i++) {
             //(rand() % (upper - lower + 1)) + lower
-            arr.push_back((rand() % (termY - 1 + 1)) + 1);
+            arr.push_back((rand() % (getmaxy(stdscr) - 1 + 1)) + 1);
         }
 
         attron(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
-        mvprintw(0, (termX / 2) - (18 / 2), "SORTING VISUALISER");
+        mvprintw(0, (getmaxx(stdscr) / 2) - (18 / 2), "SORTING VISUALISER");
         attroff(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
 
         mvprintw(5, 0, "Please type the number of the sorting method you would like to see");
@@ -207,11 +198,8 @@ std::string GetName(AlgTypes type) {
 
 void SetupColors() {
     start_color();
-    init_pair(COLOR_RED, COLOR_RED, COLOR_BLACK);
-    init_pair(COLOR_GREEN, COLOR_GREEN, COLOR_BLACK);
-    init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(COLOR_RED, COLOR_RED, COLOR_RED);
+    init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_WHITE);
     init_pair(COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(COLOR_CYAN, COLOR_CYAN, COLOR_BLACK);
-    init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
-    init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
+    init_pair(COLOR_BLACK, COLOR_WHITE, COLOR_BLACK);
 }
