@@ -4,7 +4,7 @@
 // This is the delay in microseconds. Change to 0 if you want no delay
 #define DELAY 20000
 
-void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount);
+void PrintGraph(std::vector<int> arr, int swap1, int swap2);
 
 int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
 
@@ -19,7 +19,7 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
     // Giving pivot element its correct position
     int pivotIndex = start + count;
     std::swap(arr[pivotIndex], arr[start]);
-    PrintGraph(arr, pivotIndex, start, 2);
+    PrintGraph(arr, pivotIndex, start);
 
     // Sorting left and right parts of the pivot element
     int i = start, j = end;
@@ -36,7 +36,7 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
 
         if (i < pivotIndex && j > pivotIndex) {
             std::swap(arr[i++], arr[j--]);
-            PrintGraph(arr, i - 1, j + 1, 2);
+            PrintGraph(arr, i - 1, j + 1);
         }
     }
 
@@ -70,7 +70,7 @@ void InsertionSort::Sort(std::vector<int> &arr, int n) {
         // current position
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
-            PrintGraph(arr, j + 1, j, 1);
+            PrintGraph(arr, j + 1, j);
             j = j - 1;
         }
         arr[j + 1] = key;
@@ -85,7 +85,7 @@ void BubbleSort::Sort(std::vector<int> &arr, int n) {
         for (j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 std::swap(arr[j], arr[j + 1]);
-                PrintGraph(arr, j, j + 1, 1);
+                PrintGraph(arr, j, j + 1);
                 swapped = true;
             }
         }
@@ -116,7 +116,7 @@ void SelectionSort::Sort(std::vector<int> &arr, int n) {
         // with the first element
         if (min_idx != i) {
             std::swap(arr[min_idx], arr[i]);
-            PrintGraph(arr, min_idx, i, 1);
+            PrintGraph(arr, min_idx, i);
         }
     }
 }
@@ -124,7 +124,7 @@ void SelectionSort::Sort(std::vector<int> &arr, int n) {
 int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int *lp) {
     if (arr[low] > arr[high]) {
         std::swap(arr[low], arr[high]);
-        PrintGraph(arr, low, high, 6);
+        PrintGraph(arr, low, high);
     }
 
     // p is the left pivot, and q is the right pivot.
@@ -135,7 +135,7 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int 
         // if elements are less than the left pivot
         if (arr[k] < p) {
             std::swap(arr[k], arr[j]);
-            PrintGraph(arr, k, j, 6);
+            PrintGraph(arr, k, j);
             j++;
         }
 
@@ -145,11 +145,11 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int 
             while (arr[g] > q && k < g)
                 g--;
             std::swap(arr[k], arr[g]);
-            PrintGraph(arr, k, g, 6);
+            PrintGraph(arr, k, g);
             g--;
             if (arr[k] < p) {
                 std::swap(arr[k], arr[j]);
-                PrintGraph(arr, k, j, 6);
+                PrintGraph(arr, k, j);
                 j++;
             }
         }
@@ -160,9 +160,9 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int 
 
     // bring pivots to their appropriate positions.
     std::swap(arr[low], arr[j]);
-    PrintGraph(arr, low, j, 6);
+    PrintGraph(arr, low, j);
     std::swap(arr[high], arr[g]);
-    PrintGraph(arr, high, g, 6);
+    PrintGraph(arr, high, g);
 
     // returning the indices of the pivots.
     *lp = j; // because we cannot return two elements
@@ -203,11 +203,11 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
     while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
         if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
             array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-            PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne, 4);
+            PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne);
             indexOfSubArrayOne++;
         } else {
             array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-            PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo, 4);
+            PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo);
             indexOfSubArrayTwo++;
         }
         indexOfMergedArray++;
@@ -217,7 +217,7 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
     // left[], if there are any
     while (indexOfSubArrayOne < subArrayOne) {
         array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-        PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne, 4);
+        PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne);
         indexOfSubArrayOne++;
         indexOfMergedArray++;
     }
@@ -226,7 +226,7 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
     // right[], if there are any
     while (indexOfSubArrayTwo < subArrayTwo) {
         array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-        PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo, 4);
+        PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo);
         indexOfSubArrayTwo++;
         indexOfMergedArray++;
     }
@@ -244,7 +244,7 @@ void MergeSort::Sort(std::vector<int> &array, int const begin, int const end) {
     merge(array, begin, mid, end);
 }
 
-void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
+void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
     clear();
     for (int i = 0; i < (int)arr.size(); i++) {
         // Set color
@@ -254,9 +254,9 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
             attron(COLOR_PAIR(COLOR_WHITE));
         }
         for (int j = 0; j <= arr[i]; j++) {
-            mvprintw(getmaxy(stdscr) - j, i, "0");
+            mvprintw(getmaxy(stdscr) - j, i, "O");
         }
-        //Turn color off
+        // Turn color off
         if (i == swap1 || i == swap2) {
             attroff(COLOR_PAIR(COLOR_RED));
         } else {
@@ -265,5 +265,5 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
     }
     refresh();
     // Some sorting algorithms have more swaps than others so this is a way to even the playing field.
-    usleep(DELAY); // / amount);
+    usleep(DELAY * (getmaxx(stdscr) / 80)); 
 }

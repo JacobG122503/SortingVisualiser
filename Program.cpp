@@ -198,8 +198,8 @@ std::string GetName(AlgTypes type) {
 
 void SetupColors() {
     start_color();
-    init_pair(COLOR_RED, COLOR_RED, COLOR_RED);
-    init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_WHITE);
+    init_pair(COLOR_RED, COLOR_RED, COLOR_BLACK);
+    init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
     init_pair(COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(COLOR_BLACK, COLOR_WHITE, COLOR_BLACK);
 }
