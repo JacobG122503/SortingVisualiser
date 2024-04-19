@@ -31,4 +31,10 @@ public:
     void Sort(std::vector<int> &arr, int low, int high);
 };
 
+class MergeSort {
+public:
+    void merge(std::vector<int> &array, int const left, int const mid, int const right);
+    void Sort(std::vector<int> &array, int const begin, int const end);
+};
+
 #endif

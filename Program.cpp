@@ -11,7 +11,8 @@ typedef enum AlgTypes {
     insertionSort,
     bubbleSort,
     selectionSort,
-    dualPivotQuicksort
+    dualPivotQuicksort,
+    mergeSort
 } AlgTypes;
 
 typedef class Algs {
@@ -67,6 +68,7 @@ int main(int argc, char *argv[]) {
         mvprintw(10, 0, "3. Bubble Sort");
         mvprintw(11, 0, "4. Selection Sort");
         mvprintw(12, 0, "5. Dual Pivot Quicksort");
+        mvprintw(13, 0, "6. Merge Sort");
 
         std::chrono::duration<double> seconds;
         mvprintw(16, 0, "Last run: %.2lf seconds.", seconds.count());
@@ -117,6 +119,14 @@ int main(int argc, char *argv[]) {
             std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(dualPivotQuicksort, seconds.count());
+            usleep(1750000);
+        } else if (command == '6') {
+            MergeSort ms;
+            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            ms.Sort(arr, 0, (int)arr.size());
+            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            seconds = end - start;
+            AddToLeaderboard(mergeSort, seconds.count());
             usleep(1750000);
         }
     }
@@ -188,6 +198,8 @@ std::string GetName(AlgTypes type) {
         return "Selection Sort";
     case 4:
         return "Dual Pivot Quicksort";
+    case 5:
+        return "Merge Sort";
     default:
         return "error";
     }

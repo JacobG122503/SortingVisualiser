@@ -118,65 +118,127 @@ void SelectionSort::Sort(std::vector<int> &arr, int n) {
     }
 }
 
-int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int* lp) { 
+int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int *lp) {
     if (arr[low] > arr[high]) {
-        std::swap(arr[low], arr[high]); 
+        std::swap(arr[low], arr[high]);
         PrintGraph(arr, low, high, 6);
     }
-  
-    // p is the left pivot, and q is the right pivot. 
-    int j = low + 1; 
-    int g = high - 1, k = low + 1, p = arr[low], q = arr[high]; 
-    while (k <= g) { 
-  
-        // if elements are less than the left pivot 
-        if (arr[k] < p) { 
-            std::swap(arr[k], arr[j]); 
+
+    // p is the left pivot, and q is the right pivot.
+    int j = low + 1;
+    int g = high - 1, k = low + 1, p = arr[low], q = arr[high];
+    while (k <= g) {
+
+        // if elements are less than the left pivot
+        if (arr[k] < p) {
+            std::swap(arr[k], arr[j]);
             PrintGraph(arr, k, j, 6);
-            j++; 
-        } 
-  
-        // if elements are greater than or equal 
-        // to the right pivot 
-        else if (arr[k] >= q) { 
-            while (arr[g] > q && k < g) 
-                g--; 
-            std::swap(arr[k], arr[g]); 
+            j++;
+        }
+
+        // if elements are greater than or equal
+        // to the right pivot
+        else if (arr[k] >= q) {
+            while (arr[g] > q && k < g)
+                g--;
+            std::swap(arr[k], arr[g]);
             PrintGraph(arr, k, g, 6);
-            g--; 
-            if (arr[k] < p) { 
-                std::swap(arr[k], arr[j]); 
+            g--;
+            if (arr[k] < p) {
+                std::swap(arr[k], arr[j]);
                 PrintGraph(arr, k, j, 6);
-                j++; 
-            } 
-        } 
-        k++; 
-    } 
-    j--; 
-    g++; 
-  
-    // bring pivots to their appropriate positions. 
-    std::swap(arr[low], arr[j]); 
+                j++;
+            }
+        }
+        k++;
+    }
+    j--;
+    g++;
+
+    // bring pivots to their appropriate positions.
+    std::swap(arr[low], arr[j]);
     PrintGraph(arr, low, j, 6);
-    std::swap(arr[high], arr[g]); 
+    std::swap(arr[high], arr[g]);
     PrintGraph(arr, high, g, 6);
-  
-    // returning the indices of the pivots. 
-    *lp = j; // because we cannot return two elements 
-    // from a function. 
-  
-    return g; 
+
+    // returning the indices of the pivots.
+    *lp = j; // because we cannot return two elements
+    // from a function.
+
+    return g;
 }
 
-void DualPivotQuickSort::Sort(std::vector<int> &arr, int low, int high) { 
-    if (low < high) { 
-        // lp means left pivot, and rp means right pivot. 
-        int lp, rp; 
-        rp = Partition(arr, low, high, &lp); 
-        Sort(arr, low, lp - 1); 
-        Sort(arr, lp + 1, rp - 1); 
-        Sort(arr, rp + 1, high); 
-    } 
+void DualPivotQuickSort::Sort(std::vector<int> &arr, int low, int high) {
+    if (low < high) {
+        // lp means left pivot, and rp means right pivot.
+        int lp, rp;
+        rp = Partition(arr, low, high, &lp);
+        Sort(arr, low, lp - 1);
+        Sort(arr, lp + 1, rp - 1);
+        Sort(arr, rp + 1, high);
+    }
+}
+
+void MergeSort::merge(std::vector<int> &array, int const left, int const mid, int const right) {
+    int const subArrayOne = mid - left + 1;
+    int const subArrayTwo = right - mid;
+
+    // Create temp arrays
+    int *leftArray = new int[subArrayOne],
+        *rightArray = new int[subArrayTwo];
+
+    // Copy data to temp arrays leftArray[] and rightArray[]
+    for (int i = 0; i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (int j = 0; j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
+
+    int indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
+    int indexOfMergedArray = left;
+
+    // Merge the temp arrays back into array[left..right]
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
+        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
+            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+            PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne, 4);
+            indexOfSubArrayOne++;
+        } else {
+            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+            PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo, 4);
+            indexOfSubArrayTwo++;
+        }
+        indexOfMergedArray++;
+    }
+
+    // Copy the remaining elements of
+    // left[], if there are any
+    while (indexOfSubArrayOne < subArrayOne) {
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+        PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne, 4);
+        indexOfSubArrayOne++;
+        indexOfMergedArray++;
+    }
+
+    // Copy the remaining elements of
+    // right[], if there are any
+    while (indexOfSubArrayTwo < subArrayTwo) {
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+        PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo, 4);
+        indexOfSubArrayTwo++;
+        indexOfMergedArray++;
+    }
+    delete[] leftArray;
+    delete[] rightArray;
+}
+
+void MergeSort::Sort(std::vector<int> &array, int const begin, int const end) {
+    if (begin >= end)
+        return;
+
+    int mid = begin + (end - begin) / 2;
+    Sort(array, begin, mid);
+    Sort(array, mid + 1, end);
+    merge(array, begin, mid, end);
 }
 
 void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
@@ -191,6 +253,6 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
             attroff(COLOR_PAIR(COLOR_RED) | A_BOLD);
     }
     refresh();
-    // Some sorting algorithms have more swaps than others so this is a way to even the playing field. 
-    usleep(20000/amount);
+    // Some sorting algorithms have more swaps than others so this is a way to even the playing field.
+    usleep(20000 / amount);
 }
