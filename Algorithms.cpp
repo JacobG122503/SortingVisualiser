@@ -1,7 +1,7 @@
 #include "Algorithms.h"
 #include <unistd.h>
 
-void PrintGraph(std::vector<int> arr, int swap1, int swap2);
+void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount);
 
 int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
 
@@ -16,7 +16,7 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
     // Giving pivot element its correct position
     int pivotIndex = start + count;
     std::swap(arr[pivotIndex], arr[start]);
-    PrintGraph(arr, pivotIndex, start);
+    PrintGraph(arr, pivotIndex, start, 2);
 
     // Sorting left and right parts of the pivot element
     int i = start, j = end;
@@ -33,7 +33,7 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
 
         if (i < pivotIndex && j > pivotIndex) {
             std::swap(arr[i++], arr[j--]);
-            PrintGraph(arr, i - 1, j + 1);
+            PrintGraph(arr, i - 1, j + 1, 2);
         }
     }
 
@@ -67,7 +67,7 @@ void InsertionSort::Sort(std::vector<int> &arr, int n) {
         // current position
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
-            PrintGraph(arr, j + 1, j);
+            PrintGraph(arr, j + 1, j, 1);
             j = j - 1;
         }
         arr[j + 1] = key;
@@ -82,7 +82,7 @@ void BubbleSort::Sort(std::vector<int> &arr, int n) {
         for (j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 std::swap(arr[j], arr[j + 1]);
-                PrintGraph(arr, j, j + 1);
+                PrintGraph(arr, j, j + 1, 1);
                 swapped = true;
             }
         }
@@ -113,7 +113,7 @@ void SelectionSort::Sort(std::vector<int> &arr, int n) {
         // with the first element
         if (min_idx != i) {
             std::swap(arr[min_idx], arr[i]);
-            PrintGraph(arr, min_idx, i);
+            PrintGraph(arr, min_idx, i, 1);
         }
     }
 }
@@ -121,7 +121,7 @@ void SelectionSort::Sort(std::vector<int> &arr, int n) {
 int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int* lp) { 
     if (arr[low] > arr[high]) {
         std::swap(arr[low], arr[high]); 
-        PrintGraph(arr, low, high);
+        PrintGraph(arr, low, high, 6);
     }
   
     // p is the left pivot, and q is the right pivot. 
@@ -132,7 +132,7 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int*
         // if elements are less than the left pivot 
         if (arr[k] < p) { 
             std::swap(arr[k], arr[j]); 
-            PrintGraph(arr, k, j);
+            PrintGraph(arr, k, j, 6);
             j++; 
         } 
   
@@ -142,11 +142,11 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int*
             while (arr[g] > q && k < g) 
                 g--; 
             std::swap(arr[k], arr[g]); 
-            PrintGraph(arr, k, g);
+            PrintGraph(arr, k, g, 6);
             g--; 
             if (arr[k] < p) { 
                 std::swap(arr[k], arr[j]); 
-                PrintGraph(arr, k, j);
+                PrintGraph(arr, k, j, 6);
                 j++; 
             } 
         } 
@@ -157,9 +157,9 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int*
   
     // bring pivots to their appropriate positions. 
     std::swap(arr[low], arr[j]); 
-    PrintGraph(arr, low, j);
+    PrintGraph(arr, low, j, 6);
     std::swap(arr[high], arr[g]); 
-    PrintGraph(arr, high, g);
+    PrintGraph(arr, high, g, 6);
   
     // returning the indices of the pivots. 
     *lp = j; // because we cannot return two elements 
@@ -179,7 +179,7 @@ void DualPivotQuickSort::Sort(std::vector<int> &arr, int low, int high) {
     } 
 }
 
-void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
+void PrintGraph(std::vector<int> arr, int swap1, int swap2, int amount) {
     clear();
     for (int i = 0; i < (int)arr.size(); i++) {
         if (i == swap1 || i == swap2)
@@ -191,5 +191,6 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
             attroff(COLOR_PAIR(COLOR_RED) | A_BOLD);
     }
     refresh();
-    usleep(20000);
+    // Some sorting algorithms have more swaps than others so this is a way to even the playing field. 
+    usleep(20000/amount);
 }
