@@ -244,6 +244,38 @@ void MergeSort::Sort(std::vector<int> &array, int const begin, int const end) {
     merge(array, begin, mid, end);
 }
 
+void BingoSort::MaxMin(std::vector<int> &vec, int n, int &bingo, int &nextBingo) {
+    for (int i = 1; i < n; bingo = std::min(bingo, vec[i]), nextBingo = std::max(nextBingo, vec[i]), i++)
+        ;
+}
+
+// Function to sort the array
+void BingoSort::Sort(std::vector<int> &vec, int n) {
+    int bingo = vec[0];
+    int nextBingo = vec[0];
+    MaxMin(vec, n, bingo, nextBingo);
+    int largestEle = nextBingo;
+    int nextElePos = 0;
+    while (bingo < nextBingo) {
+        // Will keep the track of the element position to
+        // shifted to their correct position
+        int startPos = nextElePos;
+        for (int i = startPos; i < n; i++) {
+            if (vec[i] == bingo) {
+                std::swap(vec[i], vec[nextElePos]);
+                PrintGraph(vec, i, nextElePos);
+                nextElePos = nextElePos + 1;
+            }
+            // Here we are finding the next Bingo Element
+            // for the next pass
+            else if (vec[i] < nextBingo)
+                nextBingo = vec[i];
+        }
+        bingo = nextBingo;
+        nextBingo = largestEle;
+    }
+}
+
 void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
     clear();
     for (int i = 0; i < (int)arr.size(); i++) {
@@ -264,6 +296,11 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
         }
     }
     refresh();
-    // Some sorting algorithms have more swaps than others so this is a way to even the playing field.
-    usleep(DELAY * (getmaxx(stdscr) / 80)); 
+    // This is a way to prevent flashing in terminal when sorting large data sets.
+    usleep(DELAY * (getmaxx(stdscr) / 80));
 }
+
+/*
+
+frequency by what the number is and do the number 
+*/

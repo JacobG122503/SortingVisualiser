@@ -37,4 +37,10 @@ public:
     void Sort(std::vector<int> &array, int const begin, int const end);
 };
 
+class BingoSort {
+public:
+    void MaxMin(std::vector<int> &vec, int n, int &bingo, int &nextBingo);
+    void Sort(std::vector<int> &vec, int n);
+};
+
 #endif
