@@ -20,4 +20,15 @@ public:
     void Sort(std::vector<int> &arr, int n);
 };
 
+class SelectionSort {
+public:
+    void Sort(std::vector<int> &arr, int n);
+};
+
+class DualPivotQuickSort {
+public:
+    int Partition(std::vector<int> &arr, int low, int high, int *lp);
+    void Sort(std::vector<int> &arr, int low, int high);
+};
+
 #endif

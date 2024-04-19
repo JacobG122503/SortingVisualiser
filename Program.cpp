@@ -1,7 +1,7 @@
+#include <chrono>
 #include <iostream>
 #include <ncurses.h>
 #include <vector>
-#include <chrono>
 
 #include "Algorithms.h"
 #include <unistd.h>
@@ -40,12 +40,14 @@ int main(int argc, char *argv[]) {
 
         mvprintw(5, 0, "Please type the number of the sorting method you would like to see or q to quit");
 
-        mvprintw(8, 0, "1. Quick Sort"); //Note add a leaderboard.
+        mvprintw(8, 0, "1. Quicksort"); // Note add a leaderboard.
         mvprintw(9, 0, "2. Insertion Sort");
         mvprintw(10, 0, "3. Bubble Sort");
+        mvprintw(11, 0, "4. Selection Sort");
+        mvprintw(12, 0, "5. Dual Pivot Quicksort");
 
         std::chrono::duration<double> seconds;
-        mvprintw(15, 0, "Last run: %.2lf seconds.", seconds.count());
+        mvprintw(16, 0, "Last run: %.2lf seconds.", seconds.count());
 
         refresh();
         command = getch();
@@ -74,6 +76,22 @@ int main(int argc, char *argv[]) {
             seconds = end - start;
             usleep(1750000);
             clear();
+        } else if (command == '4') {
+            SelectionSort ss;
+            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            ss.Sort(arr, (int)arr.size());
+            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            seconds = end - start;
+            usleep(1750000);
+            clear();
+        } else if (command == '5') {
+            DualPivotQuickSort dpqs;
+            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            dpqs.Sort(arr, 0, (int)arr.size() - 1);
+            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            seconds = end - start;
+            usleep(1750000);
+            clear();
         }
     }
 
@@ -91,4 +109,3 @@ void SetupColors() {
     init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
     init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
 }
-
