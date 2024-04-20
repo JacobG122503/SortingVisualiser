@@ -43,4 +43,11 @@ public:
     void Sort(std::vector<int> &vec, int n);
 };
 
+class PancakeSort {
+public: 
+    void flip(std::vector<int> &arr, int i);
+    int findMax(std::vector<int> &arr, int n);
+    void Sort(std::vector<int> &arr, int n);
+};
+
 #endif

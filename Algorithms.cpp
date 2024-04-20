@@ -276,6 +276,57 @@ void BingoSort::Sort(std::vector<int> &vec, int n) {
     }
 }
 
+void PancakeSort::flip(std::vector<int> &arr, int i) {
+    int temp, start = 0;
+    while (start < i) {
+        temp = arr[start];
+        arr[start] = arr[i];
+        PrintGraph(arr, start, i);
+        arr[i] = temp;
+        start++;
+        i--;
+    }
+}
+
+int PancakeSort::findMax(std::vector<int> &arr, int n) {
+    int mi, i;
+    for (mi = 0, i = 0; i < n; ++i)
+        if (arr[i] > arr[mi])
+            mi = i;
+    return mi;
+}
+
+void PancakeSort::Sort(std::vector<int> &arr, int n) {
+    // Start from the complete
+    // array and one by one
+    // reduce current size
+    // by one
+    for (int curr_size = n; curr_size > 1;
+         --curr_size) {
+        // Find index of the
+        // maximum element in
+        // arr[0..curr_size-1]
+        int mi = findMax(arr, curr_size);
+
+        // Move the maximum
+        // element to end of
+        // current array if
+        // it's not already
+        // at the end
+        if (mi != curr_size - 1) {
+            // To move at the end,
+            // first move maximum
+            // number to beginning
+            flip(arr, mi);
+
+            // Now move the maximum
+            // number to end by
+            // reversing current array
+            flip(arr, curr_size - 1);
+        }
+    }
+}
+
 void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
     clear();
     for (int i = 0; i < (int)arr.size(); i++) {
@@ -302,5 +353,5 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
 
 /*
 
-frequency by what the number is and do the number 
+frequency by what the number is and do the number
 */

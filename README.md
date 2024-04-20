@@ -7,7 +7,7 @@ The program has a bunch of different sorting algorithms to choose from. It also 
 there is a delay implemented in the sorting so you can actually see the sorting animation. You can modify this delay by changing the constant
 in the Algorithms.cpp file if you so choose. The data on for the graphs are actually generated using your terminal size, so the bigger your terminal, 
 the bigger the set of data. Keep in mind, the delay also increases with the size of the terminal, this is to prevent the screen from flashing a lot
-during the animation. 
+during the animation. This also means large data sets will take a long time to sort, especially with some of the more inefficient algorithms. 
 
 <h2>Running the Program</h2>
 

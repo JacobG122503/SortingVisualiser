@@ -44,6 +44,9 @@
         "variant": "cpp",
         "algorithm": "cpp",
         "charconv": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "unordered_map": "cpp"
     }
 }

@@ -13,7 +13,8 @@ typedef enum AlgTypes {
     selectionSort,
     dualPivotQuicksort,
     mergeSort,
-    bingoSort
+    bingoSort,
+    pancakeSort
 } AlgTypes;
 
 typedef class Algs {
@@ -62,9 +63,10 @@ int main(int argc, char *argv[]) {
         mvprintw(12, 0, "5. Dual Pivot Quicksort");
         mvprintw(13, 0, "6. Merge Sort");
         mvprintw(14, 0, "7. Bingo Sort");
+        mvprintw(15, 0, "8. Pancake Sort");
 
         std::chrono::duration<double> seconds;
-        mvprintw(16, 0, "Last run: %.2lf seconds.", seconds.count());
+        mvprintw(18, 0, "Last run: %.2lf seconds.", seconds.count());
 
         refresh();
         command = getch();
@@ -128,6 +130,14 @@ int main(int argc, char *argv[]) {
             std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(bingoSort, seconds.count());
+            usleep(1750000);
+        } else if (command == '8') {
+            PancakeSort ps;
+            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            ps.Sort(arr, (int) arr.size());
+            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            seconds = end - start;
+            AddToLeaderboard(pancakeSort, seconds.count());
             usleep(1750000);
         }
     }
@@ -203,6 +213,8 @@ std::string GetName(AlgTypes type) {
         return "Merge Sort";
     case 6:
         return "Bingo Sort";
+    case 7:
+        return "Pancake Sort";
     default:
         return "error";
     }
