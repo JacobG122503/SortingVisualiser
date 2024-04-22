@@ -14,7 +14,8 @@ typedef enum AlgTypes {
     dualPivotQuicksort,
     mergeSort,
     bingoSort,
-    pancakeSort
+    pancakeSort,
+    combSort
 } AlgTypes;
 
 typedef class Algs {
@@ -65,6 +66,7 @@ int main(int argc, char *argv[]) {
         mvprintw(13, 0, "6. Merge Sort");
         mvprintw(14, 0, "7. Bingo Sort");
         mvprintw(15, 0, "8. Pancake Sort");
+        mvprintw(16, 0, "9. Comb Sort");
 
         std::chrono::duration<double> seconds;
         mvprintw(18, 0, "Last run: %.2lf seconds.", seconds.count());
@@ -79,12 +81,12 @@ int main(int argc, char *argv[]) {
         if (command == 'S') {
             clear();
             attron(COLOR_PAIR(COLOR_MAGENTA));
-            mvprintw(0, (getmaxx(stdscr)/2) - (14/2), "DELAY SETTINGS");
+            mvprintw(0, (getmaxx(stdscr) / 2) - (14 / 2), "DELAY SETTINGS");
             attroff(COLOR_PAIR(COLOR_MAGENTA));
 
-            mvprintw(4, 0 , "Pick what delay you would like to have. The lower the delay, ");
-            mvprintw(5, 0 , "the faster the data will sort.");
-            mvprintw(6, 0 , "(Leaderboard will clear when delay changed.)");
+            mvprintw(4, 0, "Pick what delay you would like to have. The lower the delay, ");
+            mvprintw(5, 0, "the faster the data will sort.");
+            mvprintw(6, 0, "(Leaderboard will clear when delay changed.)");
 
             mvprintw(8, 0, "(1.) Very Fast (0 microseconds)");
             mvprintw(9, 0, "(2.) Fast (10,000 microseconds)");
@@ -97,7 +99,8 @@ int main(int argc, char *argv[]) {
 
             int nextDelay = getch();
 
-            if (nextDelay == 'q') continue;
+            if (nextDelay == 'q')
+                continue;
 
             Algorithms::delay = ((nextDelay - '0') - 1) * 10000;
             leaderboard.clear();
@@ -162,10 +165,18 @@ int main(int argc, char *argv[]) {
         } else if (command == '8') {
             PancakeSort ps;
             std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
-            ps.Sort(arr, (int) arr.size());
+            ps.Sort(arr, (int)arr.size());
             std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(pancakeSort, seconds.count());
+            usleep(1750000);
+        } else if (command == '9') {
+            CombSort cs;
+            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            cs.Sort(arr, (int)arr.size());
+            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            seconds = end - start;
+            AddToLeaderboard(combSort, seconds.count());
             usleep(1750000);
         }
     }
@@ -243,6 +254,8 @@ std::string GetName(AlgTypes type) {
         return "Bingo Sort";
     case 7:
         return "Pancake Sort";
+    case 8:
+        return "Comb Sort";
     default:
         return "error";
     }

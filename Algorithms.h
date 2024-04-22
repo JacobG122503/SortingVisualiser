@@ -56,4 +56,10 @@ public:
     void Sort(std::vector<int> &arr, int n);
 };
 
+class CombSort {
+public:
+    int getNextGap(int gap);
+    void Sort(std::vector<int> &a, int n);
+};
+
 #endif

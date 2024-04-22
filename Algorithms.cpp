@@ -11,12 +11,10 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
             count++;
     }
 
-    // Giving pivot element its correct position
     int pivotIndex = start + count;
     std::swap(arr[pivotIndex], arr[start]);
     Algorithms::PrintGraph(arr, pivotIndex, start);
 
-    // Sorting left and right parts of the pivot element
     int i = start, j = end;
 
     while (i < pivotIndex && j > pivotIndex) {
@@ -39,17 +37,13 @@ int QuickSort::Partition(std::vector<int> &arr, int start, int end) {
 }
 
 void QuickSort::Sort(std::vector<int> &arr, int start, int end) {
-    // base case
     if (start >= end)
         return;
 
-    // partitioning the array
     int p = Partition(arr, start, end);
 
-    // Sorting the left part
     Sort(arr, start, p - 1);
 
-    // Sorting the right part
     Sort(arr, p + 1, end);
 }
 
@@ -59,10 +53,6 @@ void InsertionSort::Sort(std::vector<int> &arr, int n) {
         key = arr[i];
         j = i - 1;
 
-        // Move elements of arr[0..i-1],
-        // that are greater than key,
-        // to one position ahead of their
-        // current position
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             Algorithms::PrintGraph(arr, j + 1, j);
@@ -85,8 +75,6 @@ void BubbleSort::Sort(std::vector<int> &arr, int n) {
             }
         }
 
-        // If no two elements were swapped
-        // by inner loop, then break
         if (swapped == false)
             break;
     }
@@ -95,20 +83,14 @@ void BubbleSort::Sort(std::vector<int> &arr, int n) {
 void SelectionSort::Sort(std::vector<int> &arr, int n) {
     int i, j, min_idx;
 
-    // One by one move boundary of
-    // unsorted subarray
     for (i = 0; i < n - 1; i++) {
 
-        // Find the minimum element in
-        // unsorted array
         min_idx = i;
         for (j = i + 1; j < n; j++) {
             if (arr[j] < arr[min_idx])
                 min_idx = j;
         }
 
-        // Swap the found minimum element
-        // with the first element
         if (min_idx != i) {
             std::swap(arr[min_idx], arr[i]);
             Algorithms::PrintGraph(arr, min_idx, i);
@@ -122,20 +104,16 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int 
         Algorithms::PrintGraph(arr, low, high);
     }
 
-    // p is the left pivot, and q is the right pivot.
     int j = low + 1;
     int g = high - 1, k = low + 1, p = arr[low], q = arr[high];
     while (k <= g) {
 
-        // if elements are less than the left pivot
         if (arr[k] < p) {
             std::swap(arr[k], arr[j]);
             Algorithms::PrintGraph(arr, k, j);
             j++;
         }
 
-        // if elements are greater than or equal
-        // to the right pivot
         else if (arr[k] >= q) {
             while (arr[g] > q && k < g)
                 g--;
@@ -153,22 +131,18 @@ int DualPivotQuickSort::Partition(std::vector<int> &arr, int low, int high, int 
     j--;
     g++;
 
-    // bring pivots to their appropriate positions.
     std::swap(arr[low], arr[j]);
     Algorithms::PrintGraph(arr, low, j);
     std::swap(arr[high], arr[g]);
     Algorithms::PrintGraph(arr, high, g);
 
-    // returning the indices of the pivots.
-    *lp = j; // because we cannot return two elements
-    // from a function.
+    *lp = j;
 
     return g;
 }
 
 void DualPivotQuickSort::Sort(std::vector<int> &arr, int low, int high) {
     if (low < high) {
-        // lp means left pivot, and rp means right pivot.
         int lp, rp;
         rp = Partition(arr, low, high, &lp);
         Sort(arr, low, lp - 1);
@@ -181,11 +155,9 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
     int const subArrayOne = mid - left + 1;
     int const subArrayTwo = right - mid;
 
-    // Create temp arrays
     int *leftArray = new int[subArrayOne],
         *rightArray = new int[subArrayTwo];
 
-    // Copy data to temp arrays leftArray[] and rightArray[]
     for (int i = 0; i < subArrayOne; i++)
         leftArray[i] = array[left + i];
     for (int j = 0; j < subArrayTwo; j++)
@@ -194,7 +166,6 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
     int indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
     int indexOfMergedArray = left;
 
-    // Merge the temp arrays back into array[left..right]
     while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
         if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
             array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
@@ -208,8 +179,6 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
         indexOfMergedArray++;
     }
 
-    // Copy the remaining elements of
-    // left[], if there are any
     while (indexOfSubArrayOne < subArrayOne) {
         array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
         Algorithms::PrintGraph(array, indexOfMergedArray, indexOfSubArrayOne);
@@ -217,8 +186,6 @@ void MergeSort::merge(std::vector<int> &array, int const left, int const mid, in
         indexOfMergedArray++;
     }
 
-    // Copy the remaining elements of
-    // right[], if there are any
     while (indexOfSubArrayTwo < subArrayTwo) {
         array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
         Algorithms::PrintGraph(array, indexOfMergedArray, indexOfSubArrayTwo);
@@ -244,7 +211,6 @@ void BingoSort::MaxMin(std::vector<int> &vec, int n, int &bingo, int &nextBingo)
         ;
 }
 
-// Function to sort the array
 void BingoSort::Sort(std::vector<int> &vec, int n) {
     int bingo = vec[0];
     int nextBingo = vec[0];
@@ -252,18 +218,13 @@ void BingoSort::Sort(std::vector<int> &vec, int n) {
     int largestEle = nextBingo;
     int nextElePos = 0;
     while (bingo < nextBingo) {
-        // Will keep the track of the element position to
-        // shifted to their correct position
         int startPos = nextElePos;
         for (int i = startPos; i < n; i++) {
             if (vec[i] == bingo) {
                 std::swap(vec[i], vec[nextElePos]);
                 Algorithms::PrintGraph(vec, i, nextElePos);
                 nextElePos = nextElePos + 1;
-            }
-            // Here we are finding the next Bingo Element
-            // for the next pass
-            else if (vec[i] < nextBingo)
+            } else if (vec[i] < nextBingo)
                 nextBingo = vec[i];
         }
         bingo = nextBingo;
@@ -292,32 +253,42 @@ int PancakeSort::findMax(std::vector<int> &arr, int n) {
 }
 
 void PancakeSort::Sort(std::vector<int> &arr, int n) {
-    // Start from the complete
-    // array and one by one
-    // reduce current size
-    // by one
     for (int curr_size = n; curr_size > 1;
          --curr_size) {
-        // Find index of the
-        // maximum element in
-        // arr[0..curr_size-1]
         int mi = findMax(arr, curr_size);
 
-        // Move the maximum
-        // element to end of
-        // current array if
-        // it's not already
-        // at the end
         if (mi != curr_size - 1) {
-            // To move at the end,
-            // first move maximum
-            // number to beginning
             flip(arr, mi);
 
-            // Now move the maximum
-            // number to end by
-            // reversing current array
             flip(arr, curr_size - 1);
+        }
+    }
+}
+
+int CombSort::getNextGap(int gap) {
+    gap = (gap * 10) / 13;
+
+    if (gap < 1)
+        return 1;
+    return gap;
+}
+
+void CombSort::Sort(std::vector<int> &a, int n) {
+    int gap = n;
+
+    bool swapped = true;
+
+    while (gap != 1 || swapped == true) {
+        gap = getNextGap(gap);
+
+        swapped = false;
+
+        for (int i = 0; i < n - gap; i++) {
+            if (a[i] > a[i + gap]) {
+                std::swap(a[i], a[i + gap]);
+                Algorithms::PrintGraph(a, i, i + gap);
+                swapped = true;
+            }
         }
     }
 }
@@ -325,7 +296,7 @@ void PancakeSort::Sort(std::vector<int> &arr, int n) {
 int Algorithms::delay = 20000;
 
 void Algorithms::PrintGraph(std::vector<int> arr, int swap1, int swap2) {
-    erase();//clear();
+    erase(); // Erase prevents screen flashing
     for (int i = 0; i < (int)arr.size(); i++) {
         // Set color
         if (i == swap1 || i == swap2) {
@@ -344,11 +315,6 @@ void Algorithms::PrintGraph(std::vector<int> arr, int swap1, int swap2) {
         }
     }
     refresh();
-    // This is a way to prevent flashing in terminal when sorting large data sets.
+
     usleep(Algorithms::delay);
 }
-
-/*
-
-frequency by what the number is and do the number
-*/
