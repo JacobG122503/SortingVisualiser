@@ -293,6 +293,23 @@ void CombSort::Sort(std::vector<int> &a, int n) {
     }
 }
 
+void GnomeSort::Sort(std::vector<int> &arr, int n) {
+    int index = 0;
+
+    while (index < n) {
+        if (index == 0)
+            index++;
+        if (arr[index] >= arr[index - 1])
+            index++;
+        else {
+            std::swap(arr[index], arr[index - 1]);
+            Algorithms::PrintGraph(arr, index, index - 1);
+            index--;
+        }
+    }
+    return;
+}
+
 int Algorithms::delay = 20000;
 
 void Algorithms::PrintGraph(std::vector<int> arr, int swap1, int swap2) {

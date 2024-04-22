@@ -15,7 +15,8 @@ typedef enum AlgTypes {
     mergeSort,
     bingoSort,
     pancakeSort,
-    combSort
+    combSort,
+    gnomeSort
 } AlgTypes;
 
 typedef class Algs {
@@ -67,9 +68,10 @@ int main(int argc, char *argv[]) {
         mvprintw(14, 0, "7. Bingo Sort");
         mvprintw(15, 0, "8. Pancake Sort");
         mvprintw(16, 0, "9. Comb Sort");
+        mvprintw(17, 0, "X. Gnome/Stupid Sort");
 
         std::chrono::duration<double> seconds;
-        mvprintw(18, 0, "Last run: %.2lf seconds.", seconds.count());
+        mvprintw(20, 0, "Last run: %.2lf seconds.", seconds.count());
 
         refresh();
         command = getch();
@@ -178,6 +180,14 @@ int main(int argc, char *argv[]) {
             seconds = end - start;
             AddToLeaderboard(combSort, seconds.count());
             usleep(1750000);
+        } else if (command == 'X') {
+            GnomeSort gs;
+            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            gs.Sort(arr, (int)arr.size());
+            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            seconds = end - start;
+            AddToLeaderboard(gnomeSort, seconds.count());
+            usleep(1750000);
         }
     }
 
@@ -256,6 +266,8 @@ std::string GetName(AlgTypes type) {
         return "Pancake Sort";
     case 8:
         return "Comb Sort";
+    case 9:
+        return "Gnome/Stupid Sort";
     default:
         return "error";
     }

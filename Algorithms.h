@@ -62,4 +62,9 @@ public:
     void Sort(std::vector<int> &a, int n);
 };
 
+class GnomeSort {
+public:
+    void Sort(std::vector<int> &arr, int n);
+};
+
 #endif
