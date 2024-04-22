@@ -20,7 +20,7 @@ The program implements the following algorithms:
 7. Bingo Sort
 8. Pancake Sort
 9. Comb Sort
-10. Gnome/Stupid sort
+10. Gnome/Stupid Sort
 
 <h2>Running the Program</h2>
 
