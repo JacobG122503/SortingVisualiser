@@ -328,7 +328,7 @@ void PancakeSort::Sort(std::vector<int> &arr, int n) {
 }
 
 void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
-    clear();
+    erase();//clear();
     for (int i = 0; i < (int)arr.size(); i++) {
         // Set color
         if (i == swap1 || i == swap2) {
@@ -348,7 +348,7 @@ void PrintGraph(std::vector<int> arr, int swap1, int swap2) {
     }
     refresh();
     // This is a way to prevent flashing in terminal when sorting large data sets.
-    usleep(DELAY * (getmaxx(stdscr) / 80));
+    usleep(DELAY);
 }
 
 /*
