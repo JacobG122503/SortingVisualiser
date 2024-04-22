@@ -110,81 +110,81 @@ int main(int argc, char *argv[]) {
 
         if (command == '1') {
             QuickSort qs;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             qs.Sort(arr, 0, (int)arr.size() - 1);
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(quicksort, seconds.count());
             usleep(1750000);
         } else if (command == '2') {
             InsertionSort is;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             is.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(insertionSort, seconds.count());
             usleep(1750000);
         } else if (command == '3') {
             BubbleSort bs;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             bs.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(bubbleSort, seconds.count());
             usleep(1750000);
         } else if (command == '4') {
             SelectionSort ss;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             ss.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(selectionSort, seconds.count());
             usleep(1750000);
         } else if (command == '5') {
             DualPivotQuickSort dpqs;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             dpqs.Sort(arr, 0, (int)arr.size() - 1);
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(dualPivotQuicksort, seconds.count());
             usleep(1750000);
         } else if (command == '6') {
             MergeSort ms;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             ms.Sort(arr, 0, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(mergeSort, seconds.count());
             usleep(1750000);
         } else if (command == '7') {
             BingoSort bs;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             bs.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(bingoSort, seconds.count());
             usleep(1750000);
         } else if (command == '8') {
             PancakeSort ps;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             ps.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(pancakeSort, seconds.count());
             usleep(1750000);
         } else if (command == '9') {
             CombSort cs;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             cs.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(combSort, seconds.count());
             usleep(1750000);
         } else if (command == 'X') {
             GnomeSort gs;
-            std::__1::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
             gs.Sort(arr, (int)arr.size());
-            std::__1::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
+            std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
             seconds = end - start;
             AddToLeaderboard(gnomeSort, seconds.count());
             usleep(1750000);
