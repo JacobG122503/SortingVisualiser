@@ -53,8 +53,9 @@ int main(int argc, char *argv[]) {
         mvprintw(0, (getmaxx(stdscr) / 2) - (18 / 2), "SORTING VISUALISER");
         attroff(COLOR_PAIR(COLOR_MAGENTA) | A_BOLD);
 
-        mvprintw(5, 0, "Please type the number of the sorting method you would like to see");
-        mvprintw(6, 0, "or 'Q' to quit. Type 'L' to view leaderboard");
+        mvprintw(4, 0, "Please type the number of the sorting method you would like to see");
+        mvprintw(5, 0, "or 'Q' to quit. Type 'L' to view leaderboard.");
+        mvprintw(6, 0, "Type 'S' to change delay settings.");
 
         mvprintw(8, 0, "1. Quicksort");
         mvprintw(9, 0, "2. Insertion Sort");
@@ -73,6 +74,33 @@ int main(int argc, char *argv[]) {
 
         if (command == 'L') {
             ViewLeaderboard();
+        }
+
+        if (command == 'S') {
+            clear();
+            attron(COLOR_PAIR(COLOR_MAGENTA));
+            mvprintw(0, (getmaxx(stdscr)/2) - (14/2), "DELAY SETTINGS");
+            attroff(COLOR_PAIR(COLOR_MAGENTA));
+
+            mvprintw(4, 0 , "Pick what delay you would like to have. The lower the delay, ");
+            mvprintw(5, 0 , "the faster the data will sort.");
+            mvprintw(6, 0 , "(Leaderboard will clear when delay changed.)");
+
+            mvprintw(8, 0, "(1.) Very Fast (0 microseconds)");
+            mvprintw(9, 0, "(2.) Fast (10,000 microseconds)");
+            mvprintw(10, 0, "(3.) Default (20,000 microseconds)");
+            mvprintw(11, 0, "(4.) Slow (30,000 microseconds)");
+            mvprintw(12, 0, "(5.) Very Slow (40,000 microseconds)");
+
+            mvprintw(15, 0, "Current delay: %d microseconds", Algorithms::delay);
+            mvprintw(getmaxy(stdscr) - 1, 0, "Type q to return.");
+
+            int nextDelay = getch();
+
+            if (nextDelay == 'q') continue;
+
+            Algorithms::delay = ((nextDelay - '0') - 1) * 10000;
+            leaderboard.clear();
         }
 
         if (command == '1') {

@@ -4,6 +4,12 @@
 #include <ncurses.h>
 #include <vector>
 
+class Algorithms {
+public:
+    static int delay;
+    void static PrintGraph(std::vector<int> arr, int swap1, int swap2);
+};
+
 class QuickSort {
 public:
     int Partition(std::vector<int> &arr, int start, int end);
